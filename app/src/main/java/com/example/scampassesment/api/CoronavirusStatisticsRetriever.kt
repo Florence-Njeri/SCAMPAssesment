@@ -31,4 +31,10 @@ class CoronavirusStatisticsRetriever {
         val call = service.getWorldStatistics()
         call.enqueue(callback)
     }
+    fun getCountriesList(callback: Callback<List<Countries>>) {
+        //5
+        val call = service.retrieveCountryNames()
+        call.enqueue(callback)
+    }
+
 }

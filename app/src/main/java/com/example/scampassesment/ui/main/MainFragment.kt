@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.scampassesment.R
 import com.example.scampassesment.api.CoronavirusStatisticsRetriever
+import com.example.scampassesment.model.Countries
 import com.example.scampassesment.model.WorldTotalCases
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
@@ -51,6 +52,18 @@ class MainFragment : Fragment() {
 
     }
 
+    //2
+    private val countriesCallback = object : Callback<List<Countries>> {
+        override fun onFailure(call: Call<List<Countries>>?, t: Throwable?) {
+            Log.e("MainActivity", "Problem calling Github API {${t?.message}}")
+        }
+
+        override fun onResponse(call: Call<List<Countries>>, response: Response<List<Countries>>) {
+            Log.d("ResposeCountries:", response.body().toString())
+            //Pass the list to the adapter
+        }
+    }
+
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -74,6 +87,7 @@ class MainFragment : Fragment() {
         if (isNetworkConnected()) {
 
             repoRetriever.getCountryStatistics(callback)
+            repoRetriever.getCountriesList(countriesCallback)
 
 
         } else {
@@ -101,4 +115,6 @@ class MainFragment : Fragment() {
                 networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
-}
+
+
+    }

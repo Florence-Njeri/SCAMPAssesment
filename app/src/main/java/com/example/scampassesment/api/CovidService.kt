@@ -13,7 +13,7 @@ interface CovidService {
 
     //Get countries
     @GET("/countries")
-    fun retrieveCountryNames(): Call<Countries>
+    fun retrieveCountryNames(): Call<List<Countries>>
 
     //Get world statistics
     @GET("/world/total")
