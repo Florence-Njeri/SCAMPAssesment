@@ -6,6 +6,22 @@ data class WorldTotalCases(
     val TotalRecovered:Int
 )
 
-//data class CountryTotalCases(
-//
-//)
+/**
+ * input{ baseUrl, country}
+ */
+data class CountryStatistics(
+    val Country:String,
+    val Confirmed:Int,
+    val Recovered:Int,
+    val Deaths:Int,
+    val Active:Int
+
+)
+
+data class Countries(
+    val Country:String
+)
+
+//Get a list of all countries
+
+//then get the statistics per country
