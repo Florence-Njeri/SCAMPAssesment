@@ -3,20 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/mainFragment">
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.scampassesment.MainActivity"
-        android:label="main_activity"
-        tools:layout="@layout/main_activity" />
+
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.scampassesment.ui.main.MainFragment"
-        android:label="main_fragment"
-        tools:layout="@layout/main_fragment" >
-        <action
-            android:id="@+id/action_mainFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
-    </fragment>
+        android:label="Covid-19 Dashboard"
+        tools:layout="@layout/main_fragment" />
 </navigation>
