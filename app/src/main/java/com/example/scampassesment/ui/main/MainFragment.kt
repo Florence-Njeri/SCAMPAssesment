@@ -1,6 +1,5 @@
 package com.example.scampassesment.ui.main
 
-import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -12,25 +11,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.scampassesment.R
+import com.example.scampassesment.adapter.ClickListener
+import com.example.scampassesment.adapter.CountriesStatisticsAdapter
 import com.example.scampassesment.api.CoronavirusStatisticsRetriever
 import com.example.scampassesment.model.Countries
 import com.example.scampassesment.model.WorldTotalCases
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlinx.android.synthetic.main.main_fragment.view.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainFragment : Fragment() {
-    var totalConfirmed:Int?=null
-    var totalDeaths:Int?=null
-    var totalRecovered:Int?=null
+
     //Network Request
     // 1
     private val repoRetriever = CoronavirusStatisticsRetriever()
@@ -60,6 +55,15 @@ class MainFragment : Fragment() {
 
         override fun onResponse(call: Call<List<Countries>>, response: Response<List<Countries>>) {
             Log.d("ResposeCountries:", response.body().toString())
+            response?.isSuccessful.let {
+
+                val resultList = response.body()
+                var adapter = CountriesStatisticsAdapter(ClickListener {
+
+                })
+                countriesList.adapter=adapter
+                adapter.submitList(resultList)
+            }
             //Pass the list to the adapter
         }
     }
