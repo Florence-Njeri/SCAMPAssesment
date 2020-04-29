@@ -18,6 +18,7 @@ import com.example.scampassesment.adapter.ClickListener
 import com.example.scampassesment.adapter.CountriesStatisticsAdapter
 import com.example.scampassesment.api.CoronavirusStatisticsRetriever
 import com.example.scampassesment.model.Countries
+import com.example.scampassesment.model.Summary
 import com.example.scampassesment.model.WorldTotalCases
 import kotlinx.android.synthetic.main.main_fragment.*
 import retrofit2.Call
@@ -42,6 +43,20 @@ class MainFragment : Fragment() {
                 totalCasesText.text=response.body()?.TotalConfirmed.toString()
                 totalDeathsText.text=response.body()?.TotalDeaths.toString()
                 recoveredCasesText.text=response.body()?.TotalRecovered.toString()
+            }
+        }
+
+    }
+    //2
+    val worldSummaryCallback = object : Callback<Summary> {
+        override fun onFailure(call: Call<Summary>?, t: Throwable?) {
+            Log.e("MainActivity", "Problem calling Github API {${t?.message}}")
+        }
+
+        override fun onResponse(call: Call<Summary>, response: Response<Summary>) {
+            response.isSuccessful.let {
+                Log.d("WorldSummary:", response.body().toString())
+
             }
         }
 
@@ -92,6 +107,7 @@ class MainFragment : Fragment() {
 
             repoRetriever.getCountryStatistics(callback)
             repoRetriever.getCountriesList(countriesCallback)
+            repoRetriever.getWorldSummary(worldSummaryCallback)
 
 
         } else {

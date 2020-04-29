@@ -1,6 +1,7 @@
 package com.example.scampassesment.api
 
 import com.example.scampassesment.model.Countries
+import com.example.scampassesment.model.Summary
 import com.example.scampassesment.model.WorldTotalCases
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -34,6 +35,11 @@ class CoronavirusStatisticsRetriever {
     fun getCountriesList(callback: Callback<List<Countries>>) {
         //5
         val call = service.retrieveCountryNames()
+        call.enqueue(callback)
+    }
+    fun getWorldSummary(callback: Callback<Summary>) {
+        //5
+        val call = service.getWorldSummary()
         call.enqueue(callback)
     }
 

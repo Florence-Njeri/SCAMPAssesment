@@ -22,6 +22,6 @@ interface CovidService {
 
     //Get world statistics
     @GET("/summary")
-    fun getWorldSummary(): Call<List<Summary>>
+    fun getWorldSummary(): Call<Summary>
 
 }
