@@ -169,6 +169,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/countriesList"
         android:layout_width="0dp"
+        android:padding="16dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"

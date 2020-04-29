@@ -56,6 +56,16 @@ class MainFragment : Fragment() {
         override fun onResponse(call: Call<Summary>, response: Response<Summary>) {
             response.isSuccessful.let {
                 Log.d("WorldSummary:", response.body().toString())
+                val resultList = response.body()
+                Log.d("WorldSummarySize:", resultList?.Countries?.size .toString())
+                Log.d("WorldSummarySizeResult:", mutableListOf(resultList).size .toString())
+
+                var adapter = CountriesStatisticsAdapter(ClickListener {
+
+                })
+                countriesList.adapter=adapter
+                adapter.submitList(resultList?.Countries)
+
 
             }
         }
@@ -72,12 +82,7 @@ class MainFragment : Fragment() {
             Log.d("ResposeCountries:", response.body().toString())
             response?.isSuccessful.let {
 
-                val resultList = response.body()
-                var adapter = CountriesStatisticsAdapter(ClickListener {
 
-                })
-                countriesList.adapter=adapter
-                adapter.submitList(resultList)
             }
             //Pass the list to the adapter
         }
