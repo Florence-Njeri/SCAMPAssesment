@@ -66,7 +66,6 @@ class MainFragment : Fragment() {
                 countriesList.adapter=adapter
                 adapter.submitList(resultList?.Countries)
 
-
             }
         }
 
