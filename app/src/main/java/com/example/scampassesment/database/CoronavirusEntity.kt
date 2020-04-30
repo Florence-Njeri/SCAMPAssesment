@@ -1,5 +1,6 @@
 package com.example.scampassesment.database
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,25 +8,26 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "statistics_table")
 data class CoronavirusEntity (
     @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "Country")
-    val Country: String,
+    val Country: String="",
     @ColumnInfo(name = "CountryCode")
-    val CountryCode: String,
+    val CountryCode: String?=null,
     @ColumnInfo(name = "Date")
-    val Date: String,
+    val Date: String?=null,
     @ColumnInfo(name = "NewConfirmed")
-    val NewConfirmed: Int,
+    val NewConfirmed: Int?=null,
     @ColumnInfo(name = "NewDeaths")
-    val NewDeaths: Int,
+    val NewDeaths: Int?=null,
     @ColumnInfo(name = "NewRecovered")
-    val NewRecovered: Int,
+    val NewRecovered: Int?=null,
     @ColumnInfo(name = "Slug")
-    val Slug: String,
+    val Slug: String?=null,
     @ColumnInfo(name = "TotalConfirmed")
-    val TotalConfirmed: Int,
+    val TotalConfirmed: Int?=null,
     @ColumnInfo(name = "TotalDeaths")
-    val TotalDeaths: Int,
+    val TotalDeaths: Int?=null,
     @ColumnInfo(name = "TotalRecovered")
-    val TotalRecovered: Int
+    val TotalRecovered: Int?=null
 
 )

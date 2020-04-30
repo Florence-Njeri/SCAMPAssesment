@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [CoronavirusEntity::class], version = 1, exportSchema = false)
 abstract class CoronavirusDatabase : RoomDatabase(){
-    abstract val coronavirusDatabase:CoronaVirusDao
+    abstract val coronavirusDatabaseDao:CoronaVirusDao
 
     companion object {
 
