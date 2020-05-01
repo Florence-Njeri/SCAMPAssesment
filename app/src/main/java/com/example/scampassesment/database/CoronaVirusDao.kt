@@ -7,7 +7,7 @@ import com.example.scampassesment.model.Country
 @Dao
 interface CoronaVirusDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(summary: DatabaseCountry)
+    fun insertAll(summary: List<DatabaseCountry>)
 
     @Update
     fun update(summary: DatabaseCountry)

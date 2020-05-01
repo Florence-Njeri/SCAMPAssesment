@@ -2,24 +2,44 @@ package com.example.scampassesment.network
 
 import com.example.scampassesment.database.DatabaseCountry
 import com.example.scampassesment.model.Country
+import com.example.scampassesment.model.NetworkCountry
+import com.squareup.moshi.JsonClass
 
-data class NetworkStatisticsContainer(val countries: List<Country>)
+@JsonClass(generateAdapter = true)
+data class NetworkStatisticsContainer(val countries: List<NetworkCountry>)
 /**
  * Convert Network results to database objects
  */
-    fun NetworkStatisticsContainer.asDatabaseModel(): List<DatabaseCountry> {
+fun NetworkStatisticsContainer.asDomainModel(): List<Country> {
         return countries.map {
-            DatabaseCountry(
+            Country(
                 Country=it.Country,
-                CountryCode=it.CountryCode!!,
-                Date= it.Date!!,
-                NewConfirmed=it.NewConfirmed!!,
-                NewDeaths=it.NewDeaths!!,
-                NewRecovered=it.NewRecovered!!,
-                Slug=it.Slug!!,
-                TotalConfirmed=it.TotalConfirmed!!,
-                TotalDeaths=it.TotalDeaths!!,
-                TotalRecovered=it.TotalRecovered!!
+                CountryCode = it.CountryCode,
+                Date = it.Date,
+                NewConfirmed = it.NewConfirmed,
+                NewDeaths = it.NewDeaths,
+                NewRecovered = it.NewRecovered,
+                Slug = it.Slug,
+                TotalConfirmed = it.TotalConfirmed,
+                TotalDeaths = it.TotalDeaths,
+                TotalRecovered = it.TotalRecovered
             )
         }
+}
+
+fun NetworkStatisticsContainer.asDatabaseModel(): List<DatabaseCountry> {
+    return countries.map {
+        DatabaseCountry(
+            Country = it.Country,
+            CountryCode = it.CountryCode,
+            Date = it.Date,
+            NewConfirmed = it.NewConfirmed,
+            NewDeaths = it.NewDeaths,
+            NewRecovered = it.NewRecovered,
+            Slug = it.Slug,
+            TotalConfirmed = it.TotalConfirmed,
+            TotalDeaths = it.TotalDeaths,
+            TotalRecovered = it.TotalRecovered
+        )
     }
+}
