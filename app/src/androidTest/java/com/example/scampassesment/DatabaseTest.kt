@@ -40,7 +40,7 @@ class DatabaseTest {
     @Throws(Exception::class)
     fun insertAndGetRecipe() {
         val recipe = DatabaseCountry()
-        coronavirusDao.insertAll(recipe)
+        coronavirusDao.insertAll(listOf(recipe))
         val tonight = coronavirusDao.getSummaryStatistics()
         Assert.assertEquals(tonight.value, null)
     }

@@ -12,45 +12,19 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.scampassesment.R
 import com.example.scampassesment.adapter.ClickListener
 import com.example.scampassesment.adapter.CountriesStatisticsAdapter
-import com.example.scampassesment.api.CoronavirusStatisticsRetriever
-import com.example.scampassesment.database.CoronaVirusDao
-import com.example.scampassesment.database.CoronavirusDatabase
-import com.example.scampassesment.model.Countries
 import com.example.scampassesment.model.Summary
-import com.example.scampassesment.model.WorldTotalCases
 import kotlinx.android.synthetic.main.main_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainFragment : Fragment() {
-    private lateinit var coronavirusDao: CoronaVirusDao
-    private lateinit var db: CoronavirusDatabase
-    //Network Request
-    // 1
-    private val repoRetriever = CoronavirusStatisticsRetriever()
 
-    //2
-    val callback = object : Callback<WorldTotalCases> {
-        override fun onFailure(call: Call<WorldTotalCases>?, t: Throwable?) {
-            Log.e("MainActivity", "Problem calling Github API {${t?.message}}")
-        }
-
-        override fun onResponse(call: Call<WorldTotalCases>, response: Response<WorldTotalCases>) {
-            response.isSuccessful.let {
-                Log.d("Respose:", response.body().toString())
-                totalCasesText.text=response.body()?.TotalConfirmed.toString()
-                totalDeathsText.text=response.body()?.TotalDeaths.toString()
-                recoveredCasesText.text=response.body()?.TotalRecovered.toString()
-            }
-        }
-
-    }
-    //2
     val worldSummaryCallback = object : Callback<Summary> {
         override fun onFailure(call: Call<Summary>?, t: Throwable?) {
             Log.e("MainActivity", "Problem calling Github API {${t?.message}}")
@@ -59,35 +33,19 @@ class MainFragment : Fragment() {
         override fun onResponse(call: Call<Summary>, response: Response<Summary>) {
             response.isSuccessful.let {
                 Log.d("WorldSummary:", response.body().toString())
-                val resultList = response.body()
-                Log.d("WorldSummarySize:", resultList?.Countries?.size .toString())
-                Log.d("WorldSummarySizeResult:", mutableListOf(resultList).size .toString())
-
-                var adapter = CountriesStatisticsAdapter(ClickListener {
-
-                })
-                countriesList.adapter=adapter
-                adapter.submitList(resultList?.Countries)
-
-            }
-        }
-
-    }
-
-    //2
-    private val countriesCallback = object : Callback<List<Countries>> {
-        override fun onFailure(call: Call<List<Countries>>?, t: Throwable?) {
-            Log.e("MainActivity", "Problem calling Github API {${t?.message}}")
-        }
-
-        override fun onResponse(call: Call<List<Countries>>, response: Response<List<Countries>>) {
-            Log.d("ResposeCountries:", response.body().toString())
-            response.isSuccessful.let {
-
+//                val resultList = response.body()
+//                Log.d("WorldSummarySize:", resultList?.Countries?.size .toString())
+//                Log.d("WorldSummarySizeResult:", mutableListOf(resultList).size .toString())
+//
+//                var adapter = CountriesStatisticsAdapter(ClickListener {
+//
+//                })
+//                countriesList.adapter=adapter
+//                adapter.submitList(resultList?.Countries)
 
             }
-            //Pass the list to the adapter
         }
+
     }
 
     companion object {
@@ -95,6 +53,7 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var viewModelFactory: MainViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,13 +67,13 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        val application = requireNotNull(activity).application
+        viewModelFactory = MainViewModelFactory(application)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         if (isNetworkConnected()) {
 
-            repoRetriever.getCountryStatistics(callback)
-            repoRetriever.getCountriesList(countriesCallback)
-            repoRetriever.getWorldSummary(worldSummaryCallback)
+//            CoronavirusStatisticsRetriever.getWorldSummary(worldSummaryCallback)
 
 
         } else {
@@ -123,6 +82,14 @@ class MainFragment : Fragment() {
                 .setPositiveButton(android.R.string.ok) { _, _ -> }
                 .setIcon(android.R.drawable.ic_dialog_alert).show()
         }
+        var adapter = CountriesStatisticsAdapter(ClickListener {
+//
+        })
+        countriesList.adapter = adapter
+        viewModel.statistics.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+
+        })
 
 
     }

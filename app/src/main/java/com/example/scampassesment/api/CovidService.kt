@@ -3,6 +3,7 @@ package com.example.scampassesment.api
 import com.example.scampassesment.model.Countries
 import com.example.scampassesment.model.WorldTotalCases
 import com.example.scampassesment.network.NetworkStatisticsContainer
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -22,6 +23,6 @@ interface CovidService {
 
     //Get world statistics
     @GET("/summary")
-    fun getWorldSummary(): Call<NetworkStatisticsContainer>
+    fun getWorldSummary(): Deferred<NetworkStatisticsContainer>
 
 }
