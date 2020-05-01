@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.scampassesment.ui.main.MainFragment"
+        android:name="com.example.scampassesment.main.MainFragment"
         android:label="Covid-19 Dashboard"
         tools:layout="@layout/main_fragment">
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/countryStatisticsDetails"
-        android:name="com.example.scampassesment.ui.main.CountryStatisticsDetails"
+        android:name="com.example.scampassesment.main.CountryStatisticsDetails"
         android:label="country_statistics_details_fragment"
         tools:layout="@layout/country_statistics_details_fragment">
         <action

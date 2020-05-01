@@ -3,29 +3,26 @@ package com.example.scampassesment.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.scampassesment.R
-import com.example.scampassesment.model.Countries
+import com.example.scampassesment.databinding.CountriesListViewBinding
 import com.example.scampassesment.model.Country
-import com.example.scampassesment.model.Summary
 
 class CountriesStatisticsAdapter(val clickListener: ClickListener) :
     ListAdapter<Country, RecyclerView.ViewHolder>(DiffCallback) {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LatestEventsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatisticssViewHolder {
+        var layoutInflater = LayoutInflater.from(parent.context)
+        return StatisticssViewHolder(CountriesListViewBinding.inflate(layoutInflater))
 
-        val inflater = LayoutInflater.from(parent.context)
-        return LatestEventsViewHolder(inflater, parent)
 
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is LatestEventsViewHolder -> {
+            is StatisticssViewHolder -> {
                 val activeProjects: Country = getItem(position)
                 //On click navigate
 
@@ -38,22 +35,15 @@ class CountriesStatisticsAdapter(val clickListener: ClickListener) :
     }
 
 
-    class LatestEventsViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.countries_list_view, parent, false)) {
-        private var mCountries: TextView? = null
-        private var mStatistics: TextView? = null
-
-        init {
-            mCountries = itemView.findViewById(R.id.country)
-            mStatistics = itemView.findViewById(R.id.statistics)
+    class StatisticssViewHolder(private var binding: CountriesListViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
 
-        }
 
         fun bind(countries: Country, clickListener: ClickListener) {
 
-            mCountries?.text = countries.Country
-            mStatistics?.text = countries.TotalConfirmed.toString()
+            binding.country.text = countries.Country
+            binding.statistics.text = countries.TotalConfirmed.toString()
 
 
         }

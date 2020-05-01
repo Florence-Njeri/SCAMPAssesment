@@ -21,7 +21,12 @@ class StatisticsRepository(private var database: CoronavirusDatabase) {
 
     val coronavirusStatistics: LiveData<List<Country>> =
         (database.coronavirusDatabaseDao.getSummaryStatistics())
-
+    var newConfirmed: String? = null
+    var newDeaths: String? = null
+    var newRecovered: String? = null
+    var totalConfirmed: String? = null
+    var totalDeaths: String? = null
+    var totalRecovered: String? = null
 
 
     /**
@@ -39,8 +44,17 @@ class StatisticsRepository(private var database: CoronavirusDatabase) {
 
                 override fun onResponse(call: Call<Summary>, response: Response<Summary>) {
                     response.isSuccessful.let {
+                        Log.d("Global Statistics", response.body()?.Global.toString())
+                        newConfirmed = response.body()?.Global?.NewConfirmed.toString()
+                        newDeaths = response.body()?.Global?.NewDeaths.toString()
+                        newRecovered = response.body()?.Global?.NewRecovered.toString()
+                        totalConfirmed = response.body()?.Global?.TotalConfirmed.toString()
+                        totalDeaths = response.body()?.Global?.TotalDeaths.toString()
+                        totalRecovered = response.body()?.Global?.TotalRecovered.toString()
+
                         Log.d("WorldSummary:", response.body().toString())
                         val resultList = response.body()
+
 //                Log.d("WorldSummarySize:", resultList?.Countries?.size .toString())
 //                Log.d("WorldSummarySizeResult:", mutableListOf(resultList).size .toString())
 //

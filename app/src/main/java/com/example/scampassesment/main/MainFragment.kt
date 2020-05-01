@@ -1,4 +1,4 @@
-package com.example.scampassesment.ui.main
+package com.example.scampassesment.main
 
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager

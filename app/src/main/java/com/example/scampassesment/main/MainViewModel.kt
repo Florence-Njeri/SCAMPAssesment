@@ -1,4 +1,4 @@
-package com.example.scampassesment.ui.main
+package com.example.scampassesment.main
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
@@ -30,6 +30,12 @@ class MainViewModel(application: Application) : ViewModel() {
 
 
     val statistics = statisticsRepository.coronavirusStatistics
+    val newConfirmed = statisticsRepository.newConfirmed
+    val newDeaths = statisticsRepository.newDeaths
+    val newRecovered = statisticsRepository.newRecovered
+    val totalConfirmed = statisticsRepository.totalConfirmed
+    val totalDeaths = statisticsRepository.totalDeaths
+    val totalRecovered = statisticsRepository.totalRecovered
     init {
         uiScope.launch {
 

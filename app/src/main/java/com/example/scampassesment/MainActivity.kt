@@ -1,25 +1,11 @@
 package com.example.scampassesment
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.example.scampassesment.api.CoronavirusStatisticsRetriever
-import com.example.scampassesment.model.WorldTotalCases
-import com.example.scampassesment.ui.main.MainFragment
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.scampassesment.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
