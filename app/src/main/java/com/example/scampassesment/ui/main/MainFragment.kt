@@ -17,6 +17,8 @@ import com.example.scampassesment.R
 import com.example.scampassesment.adapter.ClickListener
 import com.example.scampassesment.adapter.CountriesStatisticsAdapter
 import com.example.scampassesment.api.CoronavirusStatisticsRetriever
+import com.example.scampassesment.database.CoronaVirusDao
+import com.example.scampassesment.database.CoronavirusDatabase
 import com.example.scampassesment.model.Countries
 import com.example.scampassesment.model.Summary
 import com.example.scampassesment.model.WorldTotalCases
@@ -26,7 +28,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainFragment : Fragment() {
-
+    private lateinit var coronavirusDao: CoronaVirusDao
+    private lateinit var db: CoronavirusDatabase
     //Network Request
     // 1
     private val repoRetriever = CoronavirusStatisticsRetriever()
@@ -79,7 +82,7 @@ class MainFragment : Fragment() {
 
         override fun onResponse(call: Call<List<Countries>>, response: Response<List<Countries>>) {
             Log.d("ResposeCountries:", response.body().toString())
-            response?.isSuccessful.let {
+            response.isSuccessful.let {
 
 
             }

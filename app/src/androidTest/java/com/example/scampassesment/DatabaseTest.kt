@@ -5,7 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.scampassesment.database.CoronaVirusDao
 import com.example.scampassesment.database.CoronavirusDatabase
-import com.example.scampassesment.database.CoronavirusEntity
+import com.example.scampassesment.database.DatabaseCountry
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -39,10 +39,10 @@ class DatabaseTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetRecipe() {
-        val recipe = CoronavirusEntity()
-        coronavirusDao.insert(recipe)
+        val recipe = DatabaseCountry()
+        coronavirusDao.insertAll(recipe)
         val tonight = coronavirusDao.getSummaryStatistics()
-        Assert.assertEquals(tonight?.value, null)
+        Assert.assertEquals(tonight.value, null)
     }
 }
 

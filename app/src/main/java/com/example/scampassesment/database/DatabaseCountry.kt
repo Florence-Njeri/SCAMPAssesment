@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "statistics_table")
-data class CoronavirusEntity (
+data class DatabaseCountry (
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "Country")
