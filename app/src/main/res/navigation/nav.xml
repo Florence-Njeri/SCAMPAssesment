@@ -10,5 +10,18 @@
         android:id="@+id/mainFragment"
         android:name="com.example.scampassesment.ui.main.MainFragment"
         android:label="Covid-19 Dashboard"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_countryStatisticsDetails"
+            app:destination="@id/countryStatisticsDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/countryStatisticsDetails"
+        android:name="com.example.scampassesment.ui.main.CountryStatisticsDetails"
+        android:label="country_statistics_details_fragment"
+        tools:layout="@layout/country_statistics_details_fragment">
+        <action
+            android:id="@+id/action_countryStatisticsDetails_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>
