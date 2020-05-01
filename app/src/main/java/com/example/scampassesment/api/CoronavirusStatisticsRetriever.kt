@@ -1,6 +1,5 @@
 package com.example.scampassesment.api
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -19,7 +18,6 @@ object CoronavirusStatisticsRetriever {
             .baseUrl(BASE_URL)
             //3
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
         //4
         service = retrofit.create(CovidService::class.java)

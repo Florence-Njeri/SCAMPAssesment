@@ -7,10 +7,10 @@ import com.example.scampassesment.model.Country
 @Dao
 interface CoronaVirusDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(summary: List<DatabaseCountry>?)
+    fun insertAll(summary: List<Country>?)
 
     @Update
-    fun update(summary: DatabaseCountry)
+    fun update(summary: Country)
     //Get a specific country based on user Query
 
     @Query("SELECT * from statistics_table ORDER BY Country DESC LIMIT 1")
@@ -18,5 +18,5 @@ interface CoronaVirusDao {
 
 
     @Query("SELECT * from statistics_table ORDER BY TotalConfirmed DESC")
-    fun getSummaryStatistics(): LiveData<List<DatabaseCountry>>
+    fun getSummaryStatistics(): LiveData<List<Country>>
 }
