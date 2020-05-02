@@ -1,5 +1,6 @@
 package com.example.scampassesment.main
 
+import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -24,6 +25,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainFragment : Fragment() {
+
 
     val worldSummaryCallback = object : Callback<Summary> {
         override fun onFailure(call: Call<Summary>?, t: Throwable?) {
@@ -91,6 +93,11 @@ class MainFragment : Fragment() {
 
         })
 
+        val sharedPreference =
+            context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        totalCasesText.text = sharedPreference?.getString("totalConfirmed", " ")
+        recoveredCasesText.text = sharedPreference?.getString("totalRecovered", " ")
+        totalDeathsText.text = sharedPreference?.getString("totalDeaths", " ")
 
     }
 

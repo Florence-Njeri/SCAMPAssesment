@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : ViewModel() {
 
+
     private var viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -21,21 +22,24 @@ class MainViewModel(application: Application) : ViewModel() {
     private var countryStatistic = MutableLiveData<Country?>()
 
     private val statisticsDatabase = getInstance(application)
-    val statisticsRepository = StatisticsRepository(statisticsDatabase)
+    val statisticsRepository = StatisticsRepository(statisticsDatabase, application)
 //    var statistics = database.getSummaryStatistics()
 
     /**
      * The data source this ViewModel will fetch results from.
      */
 
-
+//    val sharedPreference =application.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+//    val recovered =sharedPreference.getString("newRecovered"," ")
+//    Log.d("Recovered",recovered)
     val statistics = statisticsRepository.coronavirusStatistics
-    val newConfirmed = statisticsRepository.newConfirmed
-    val newDeaths = statisticsRepository.newDeaths
-    val newRecovered = statisticsRepository.newRecovered
-    val totalConfirmed = statisticsRepository.totalConfirmed
-    val totalDeaths = statisticsRepository.totalDeaths
-    val totalRecovered = statisticsRepository.totalRecovered
+
+    //    val newConfirmed = sharedPreference.getString("newConfirmed", "")
+//    val newDeaths = statisticsRepository.newDeaths
+//    val newRecovered = statisticsRepository.newRecovered
+//    val totalConfirmed = statisticsRepository.totalConfirmed
+//    val totalDeaths = statisticsRepository.totalDeaths
+//    val totalRecovered = statisticsRepository.totalRecovered
     init {
         uiScope.launch {
 
