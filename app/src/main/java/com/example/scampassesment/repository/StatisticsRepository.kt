@@ -96,7 +96,10 @@ class StatisticsRepository(private var database: CoronavirusDatabase, val contex
 
                         Thread {
                             //Do your database´s operations here
-                            database.coronavirusDatabaseDao.insertAll(resultList?.Countries)
+                            if (resultList?.Countries != null) {
+                                database.coronavirusDatabaseDao.insertAll(resultList.Countries)
+
+                            }
 
                         }.start()
 

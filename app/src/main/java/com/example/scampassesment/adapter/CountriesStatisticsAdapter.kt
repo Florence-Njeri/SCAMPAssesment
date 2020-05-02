@@ -26,13 +26,13 @@ class CountriesStatisticsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is StatisticssViewHolder -> {
-                val activeProjects: Country = getItem(position)
+                val countries: Country = getItem(position)
                 //On click navigate
 
                 holder.itemView.setOnClickListener {
-                    clickListener.onClick(activeProjects)
+                    clickListener.onClick(countries)
                 }
-                holder.bind(activeProjects, clickListener)
+                holder.bind(countries, clickListener)
             }
         }
     }
@@ -41,9 +41,9 @@ class CountriesStatisticsAdapter(
     class StatisticssViewHolder(private var binding: CountriesListViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-
-
         fun bind(countries: Country, clickListener: ClickListener) {
+
+            binding.clickListener = clickListener
 
             binding.country.text = countries.Country
             binding.statistics.text = countries.TotalConfirmed.toString()
