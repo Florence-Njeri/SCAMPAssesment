@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class MainFragment : Fragment() {
 
@@ -119,6 +121,10 @@ class MainFragment : Fragment() {
                 filter(s.toString())
             }
         })
+
+        include2.search_icon.setOnClickListener {
+            Utils.hideSoftKeyBoard(requireContext(), it)
+        }
     }
 
     private fun filter(text: String) {
@@ -147,4 +153,18 @@ class MainFragment : Fragment() {
     }
 
 
+}
+
+object Utils {
+
+    fun hideSoftKeyBoard(context: Context, view: View) {
+        try {
+            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        } catch (e: Exception) {
+            // TODO: handle exception
+            e.printStackTrace()
+        }
+
+    }
 }
