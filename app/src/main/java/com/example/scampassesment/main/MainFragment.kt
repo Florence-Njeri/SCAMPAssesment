@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.scampassesment.R
 import com.example.scampassesment.adapter.CountriesStatisticsAdapter
 import com.example.scampassesment.model.Country
@@ -94,7 +95,8 @@ class MainFragment : Fragment() {
         }
 
         mAdapter = CountriesStatisticsAdapter(CountriesStatisticsAdapter.ClickListener {
-//
+
+            viewModel.displayPropertyDetails(it)
         }, countryList)
         countriesList.adapter = mAdapter
 
@@ -125,6 +127,16 @@ class MainFragment : Fragment() {
         include2.search_icon.setOnClickListener {
             Utils.hideSoftKeyBoard(requireContext(), it)
         }
+
+        viewModel.navigateToSelectedCountry.observe(viewLifecycleOwner, Observer {
+            if (null != it) {
+
+                this.findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToCountryStatisticsDetails(it)
+                )
+                viewModel.displayPropertyDetailsComplete()
+            }
+        })
     }
 
     private fun filter(text: String) {

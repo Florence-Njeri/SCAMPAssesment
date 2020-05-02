@@ -1,9 +1,11 @@
 package com.example.scampassesment.model
 
+import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 data class WorldTotalCases(
     val TotalConfirmed:Int,
@@ -39,6 +41,7 @@ data class Summary(
  * Statistics per country
  * Get Country name and TotalConfirmed
  */
+@Parcelize
 @Entity(tableName = "statistics_table")
 data class Country(
     @PrimaryKey
@@ -63,7 +66,8 @@ data class Country(
     val TotalDeaths: Int? = null,
     @ColumnInfo(name = "TotalRecovered")
     val TotalRecovered: Int? = null
-)
+) : Parcelable
+
 //Global statistics
 data class Global(
     val NewConfirmed: Int,

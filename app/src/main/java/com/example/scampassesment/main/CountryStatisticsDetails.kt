@@ -1,6 +1,7 @@
 package com.example.scampassesment.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,14 @@ class CountryStatisticsDetails : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.country_statistics_details_fragment, container, false)
+
+        val view = inflater.inflate(R.layout.country_statistics_details_fragment, container, false)
+
+        val countryProperty =
+            CountryStatisticsDetailsArgs.fromBundle(requireArguments()).selectedCountry
+        Log.d("CountryProperty", countryProperty.toString())
+
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

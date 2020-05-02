@@ -1,6 +1,7 @@
 package com.example.scampassesment.main
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,6 +22,10 @@ class MainViewModel(application: Application) : ViewModel() {
 
     private var countryStatistic = MutableLiveData<Country?>()
 
+    private val _navigateToSelectedCountry = MutableLiveData<Country>()
+    val navigateToSelectedCountry: LiveData<Country>
+        get() = _navigateToSelectedCountry
+
     private val statisticsDatabase = getInstance(application)
     val statisticsRepository = StatisticsRepository(statisticsDatabase, application)
 //    var statistics = database.getSummaryStatistics()
@@ -29,17 +34,8 @@ class MainViewModel(application: Application) : ViewModel() {
      * The data source this ViewModel will fetch results from.
      */
 
-//    val sharedPreference =application.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
-//    val recovered =sharedPreference.getString("newRecovered"," ")
-//    Log.d("Recovered",recovered)
     val statistics = statisticsRepository.coronavirusStatistics
 
-    //    val newConfirmed = sharedPreference.getString("newConfirmed", "")
-//    val newDeaths = statisticsRepository.newDeaths
-//    val newRecovered = statisticsRepository.newRecovered
-//    val totalConfirmed = statisticsRepository.totalConfirmed
-//    val totalDeaths = statisticsRepository.totalDeaths
-//    val totalRecovered = statisticsRepository.totalRecovered
     init {
         uiScope.launch {
 
@@ -55,19 +51,16 @@ class MainViewModel(application: Application) : ViewModel() {
     private fun refreshDataFromRepository() {
         viewModelScope.launch {
             statisticsRepository.refreshStatistics()
-//            try {
-//                statisticsRepository.refreshStatistics()
-////                _eventNetworkError.value = false
-////                _isNetworkErrorShown.value = false
-//
-//            } catch (networkError: IOException) {
-//                // Show a Toast error message and hide the progress bar.
-//                if (statistics.value.isNullOrEmpty())
-//                    statisticsRepository.refreshStatistics()
-////                    _eventNetworkError.value = true
-//
-//            }
+
         }
+    }
+
+    fun displayPropertyDetails(countryProperty: Country) {
+        _navigateToSelectedCountry.value = countryProperty
+    }
+
+    fun displayPropertyDetailsComplete() {
+        _navigateToSelectedCountry.value = null
     }
 
     override fun onCleared() {

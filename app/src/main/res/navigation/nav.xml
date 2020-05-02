@@ -23,5 +23,8 @@
         <action
             android:id="@+id/action_countryStatisticsDetails_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="selectedCountry"
+            app:argType="com.example.scampassesment.model.Country" />
     </fragment>
 </navigation>
