@@ -6,7 +6,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.scampassesment.adapter.ClickListener" />
+            type="com.example.scampassesment.adapter.CountriesStatisticsAdapter.ClickListener" />
 
         <variable
             name="data"

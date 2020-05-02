@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.scampassesment.databinding.CountriesListViewBinding
 import com.example.scampassesment.model.Country
 
-class CountriesStatisticsAdapter(val clickListener: ClickListener) :
+class CountriesStatisticsAdapter(
+    val clickListener: ClickListener,
+    private var countryList: ArrayList<Country>
+) :
     ListAdapter<Country, RecyclerView.ViewHolder>(DiffCallback) {
 
 
@@ -62,9 +65,14 @@ class CountriesStatisticsAdapter(val clickListener: ClickListener) :
         }
     }
 
-}
+
+    fun filterList(filteredList: ArrayList<Country>) {
+        countryList = filteredList
+        notifyDataSetChanged()
+    }
 
 class ClickListener(val clickListener: (countries: Country) -> Unit) {
     fun onClick(countries: Country) = clickListener(countries)
 
+}
 }
