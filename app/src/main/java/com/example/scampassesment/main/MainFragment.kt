@@ -96,7 +96,7 @@ class MainFragment : Fragment() {
 
         mAdapter = CountriesStatisticsAdapter(CountriesStatisticsAdapter.ClickListener {
 
-            viewModel.displayPropertyDetails(it)
+//            viewModel.displayPropertyDetails(it)
         }, countryList)
         countriesList.adapter = mAdapter
 
