@@ -18,8 +18,14 @@ class CountriesStatisticsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatisticssViewHolder {
         var layoutInflater = LayoutInflater.from(parent.context)
-        return StatisticssViewHolder(CountriesListViewBinding.inflate(layoutInflater))
 
+        return StatisticssViewHolder(
+            CountriesListViewBinding.inflate(
+                layoutInflater,
+                parent,
+                false
+            )
+        )
 
     }
 
@@ -46,7 +52,10 @@ class CountriesStatisticsAdapter(
             binding.clickListener = clickListener
 
             binding.country.text = countries.Country
-            binding.statistics.text = countries.TotalConfirmed.toString()
+            binding.confirmedStatistics.text = countries.TotalConfirmed.toString()
+            binding.recoveriesStatistics.text = countries.TotalRecovered.toString()
+            binding.deathStatistics.text = countries.TotalDeaths.toString()
+            binding.textViewNewCases.text = countries.NewConfirmed.toString()
 
 
         }

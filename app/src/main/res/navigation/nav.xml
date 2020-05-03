@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/countryStatisticsDetails"
         android:name="com.example.scampassesment.main.CountryStatisticsDetails"
-        android:label="country_statistics_details_fragment"
+        android:label="Country Details"
         tools:layout="@layout/country_statistics_details_fragment">
         <action
             android:id="@+id/action_countryStatisticsDetails_to_mainFragment"
