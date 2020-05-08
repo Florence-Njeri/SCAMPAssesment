@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,42 +21,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.scampassesment.R
 import com.example.scampassesment.adapter.CountriesStatisticsAdapter
 import com.example.scampassesment.model.Country
-import com.example.scampassesment.model.Summary
 import com.example.scampassesment.ui.MainFragmentDirections
 import com.example.scampassesment.ui.viewModel.MainViewModel
 import com.example.scampassesment.ui.viewModel.MainViewModelFactory
 import kotlinx.android.synthetic.main.countries_search_bar.view.*
 import kotlinx.android.synthetic.main.main_fragment.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class MainFragment : Fragment() {
-
-
-    val worldSummaryCallback = object : Callback<Summary> {
-        override fun onFailure(call: Call<Summary>?, t: Throwable?) {
-            Log.e("MainActivity", "Problem calling Github API {${t?.message}}")
-        }
-
-        override fun onResponse(call: Call<Summary>, response: Response<Summary>) {
-            response.isSuccessful.let {
-                Log.d("WorldSummary:", response.body().toString())
-//                val resultList = response.body()
-//                Log.d("WorldSummarySize:", resultList?.Countries?.size .toString())
-//                Log.d("WorldSummarySizeResult:", mutableListOf(resultList).size .toString())
-//
-//                var adapter = CountriesStatisticsAdapter(ClickListener {
-//
-//                })
-//                countriesList.adapter=adapter
-//                adapter.submitList(resultList?.Countries)
-
-            }
-        }
-
-    }
 
     companion object {
         fun newInstance() = MainFragment()
@@ -89,8 +60,6 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         if (isNetworkConnected()) {
-
-//            CoronavirusStatisticsRetriever.getWorldSummary(worldSummaryCallback)
 
 
         } else {
