@@ -6,13 +6,13 @@
 
         <variable
             name="viewModel"
-            type="com.example.scampassesment.main.CountryStatisticsDetailsViewModel" />
+            type="com.example.scampassesment.ui.viewModel.CountryStatisticsDetailsViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".main.CountryStatisticsDetails">
+        tools:context=".ui.view.CountryStatisticsDetails">
 
         <TextView
             android:layout_width="match_parent"

@@ -3,11 +3,11 @@ package com.example.scampassesment.repository
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.example.scampassesment.MainActivity
 import com.example.scampassesment.api.CoronavirusStatisticsRetriever
 import com.example.scampassesment.database.CoronavirusDatabase
 import com.example.scampassesment.model.Country
 import com.example.scampassesment.model.Summary
+import com.example.scampassesment.ui.view.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call
@@ -50,7 +50,8 @@ class StatisticsRepository(private var database: CoronavirusDatabase, val contex
                     response.isSuccessful.let {
 
                         Log.d("Global Statistics", response.body()?.Global.toString())
-                        val mainActivity = MainActivity()
+                        val mainActivity =
+                            MainActivity()
                         //Save Global Statistics to shared Preferences
                         val sharedPreference =
                             context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)

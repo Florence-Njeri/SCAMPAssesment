@@ -1,4 +1,4 @@
-package com.example.scampassesment.main
+package com.example.scampassesment.ui.viewModel
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -11,7 +11,10 @@ class DetailsViewModelFactory(
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CountryStatisticsDetailsViewModel::class.java)) {
-            return CountryStatisticsDetailsViewModel(countryProperty, application) as T
+            return CountryStatisticsDetailsViewModel(
+                countryProperty,
+                application
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

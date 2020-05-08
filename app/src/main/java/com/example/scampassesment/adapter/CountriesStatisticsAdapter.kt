@@ -76,6 +76,7 @@ class CountriesStatisticsAdapter(
 
 
     fun filterList(filteredList: ArrayList<Country>) {
+//        countryList.clear()
         countryList = filteredList
         notifyDataSetChanged()
     }

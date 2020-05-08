@@ -1,4 +1,4 @@
-package com.example.scampassesment.main
+package com.example.scampassesment.ui.view
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
@@ -23,6 +23,9 @@ import com.example.scampassesment.R
 import com.example.scampassesment.adapter.CountriesStatisticsAdapter
 import com.example.scampassesment.model.Country
 import com.example.scampassesment.model.Summary
+import com.example.scampassesment.ui.MainFragmentDirections
+import com.example.scampassesment.ui.viewModel.MainViewModel
+import com.example.scampassesment.ui.viewModel.MainViewModelFactory
 import kotlinx.android.synthetic.main.countries_search_bar.view.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import retrofit2.Call
@@ -79,7 +82,10 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val application = requireNotNull(activity).application
-        viewModelFactory = MainViewModelFactory(application)
+        viewModelFactory =
+            MainViewModelFactory(
+                application
+            )
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         if (isNetworkConnected()) {
@@ -125,14 +131,19 @@ class MainFragment : Fragment() {
         })
 
         include2.search_icon.setOnClickListener {
-            Utils.hideSoftKeyBoard(requireContext(), it)
+            Utils.hideSoftKeyBoard(
+                requireContext(),
+                it
+            )
         }
 
         viewModel.navigateToSelectedCountry.observe(viewLifecycleOwner, Observer {
             if (null != it) {
 
                 this.findNavController().navigate(
-                    MainFragmentDirections.actionMainFragmentToCountryStatisticsDetails(it)
+                    MainFragmentDirections.actionMainFragmentToCountryStatisticsDetails(
+                        it
+                    )
                 )
                 viewModel.displayPropertyDetailsComplete()
             }

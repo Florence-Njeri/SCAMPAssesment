@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="com.example.scampassesment.main.MainViewModel" />
+            type="com.example.scampassesment.ui.viewModel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".main.MainFragment">
+        tools:context=".ui.view.MainFragment">
 
         <TextView
             android:id="@+id/textView"

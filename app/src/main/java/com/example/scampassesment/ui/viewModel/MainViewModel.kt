@@ -1,4 +1,4 @@
-package com.example.scampassesment.main
+package com.example.scampassesment.ui.viewModel
 
 import android.app.Application
 import androidx.lifecycle.LiveData

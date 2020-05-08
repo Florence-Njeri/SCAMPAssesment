@@ -1,4 +1,4 @@
-package com.example.scampassesment.main
+package com.example.scampassesment.ui.view
 
 import android.os.Bundle
 import android.util.Log
@@ -10,11 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.scampassesment.R
 import com.example.scampassesment.databinding.CountryStatisticsDetailsFragmentBinding
+import com.example.scampassesment.ui.CountryStatisticsDetailsArgs
+import com.example.scampassesment.ui.viewModel.CountryStatisticsDetailsViewModel
+import com.example.scampassesment.ui.viewModel.DetailsViewModelFactory
 
 class CountryStatisticsDetails : Fragment() {
 
     companion object {
-        fun newInstance() = CountryStatisticsDetails()
+        fun newInstance() =
+            CountryStatisticsDetails()
     }
 
     //    private lateinit var viewModel: CountryStatisticsDetailsViewModel
@@ -34,10 +38,16 @@ class CountryStatisticsDetails : Fragment() {
         val application = requireNotNull(activity).application
 
         val countryProperty =
-            CountryStatisticsDetailsArgs.fromBundle(requireArguments()).selectedCountry
+            CountryStatisticsDetailsArgs.fromBundle(
+                requireArguments()
+            ).selectedCountry
         Log.d("CountryProperty", countryProperty.toString())
 
-        val viewModelFactory = DetailsViewModelFactory(countryProperty, application)
+        val viewModelFactory =
+            DetailsViewModelFactory(
+                countryProperty,
+                application
+            )
         binding.viewModel = ViewModelProviders.of(
             this, viewModelFactory
         ).get(CountryStatisticsDetailsViewModel::class.java)

@@ -1,4 +1,4 @@
-package com.example.scampassesment.main
+package com.example.scampassesment.ui.viewModel
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -12,7 +12,9 @@ class MainViewModelFactory(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(application) as T
+            return MainViewModel(
+                application
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
 
