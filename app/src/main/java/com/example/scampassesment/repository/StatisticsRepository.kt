@@ -25,14 +25,6 @@ class StatisticsRepository(private var database: CoronavirusDatabase, val contex
     val coronavirusStatistics: LiveData<List<Country>> =
         (database.coronavirusDatabaseDao.getSummaryStatistics())
 
-    var newConfirmed: String? = null
-    var newDeaths: String? = null
-    var newRecovered: String? = null
-    var totalConfirmed: String? = null
-    var totalDeaths: String? = null
-    var totalRecovered: String? = null
-
-
     /**
      *  API used to refresh the offline cache.
      */
@@ -43,7 +35,7 @@ class StatisticsRepository(private var database: CoronavirusDatabase, val contex
 
             client.getWorldSummary().enqueue(object : Callback<Summary> {
                 override fun onFailure(call: Call<Summary>?, t: Throwable?) {
-                    Log.e("MainActivity", "Problem calling Github API {${t?.message}}")
+                    Log.e("MainActivity", "Problem calling Covid API: {${t?.message}}")
                 }
 
                 override fun onResponse(call: Call<Summary>, response: Response<Summary>) {
@@ -85,15 +77,6 @@ class StatisticsRepository(private var database: CoronavirusDatabase, val contex
                         sharedPreference.getString("newRecovered", " ")
                         Log.d("WorldSummary:", response.body().toString())
                         val resultList = response.body()
-
-//                Log.d("WorldSummarySize:", resultList?.Countries?.size .toString())
-//                Log.d("WorldSummarySizeResult:", mutableListOf(resultList).size .toString())
-//
-//                var adapter = CountriesStatisticsAdapter(ClickListener {
-//
-//                })
-//                countriesList.adapter=adapter
-//                adapter.submitList(resultList?.Countries)
 
                         Thread {
                             //Do your database´s operations here
