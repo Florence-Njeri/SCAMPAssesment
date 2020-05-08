@@ -29,7 +29,7 @@ class StatisticsRepository(private var database: CoronavirusDatabase, val contex
      *  API used to refresh the offline cache.
      */
     fun getCountry(country: String): LiveData<Country> {
-        return database.coronavirusDatabaseDao.getCountry(country)
+        return database.coronavirusDatabaseDao.getCountry(/*country*/)
     }
 
     suspend fun refreshStatistics() {
