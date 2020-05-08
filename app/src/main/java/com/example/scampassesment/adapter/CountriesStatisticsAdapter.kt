@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scampassesment.databinding.CountriesListViewBinding
 import com.example.scampassesment.model.Country
+import java.text.DecimalFormat
 
 class CountriesStatisticsAdapter(
     val clickListener: ClickListener,
@@ -52,10 +53,14 @@ class CountriesStatisticsAdapter(
             binding.clickListener = clickListener
 
             binding.country.text = countries.Country
-            binding.confirmedStatistics.text = countries.TotalConfirmed.toString()
-            binding.recoveriesStatistics.text = countries.TotalRecovered.toString()
-            binding.deathStatistics.text = countries.TotalDeaths.toString()
-            binding.textViewNewCases.text = countries.NewConfirmed.toString()
+
+            val formatter = DecimalFormat("#,###,###")
+
+            binding.confirmedStatistics.text = formatter.format(countries.TotalConfirmed).toString()
+            binding.recoveriesStatistics.text =
+                formatter.format(countries.TotalRecovered).toString()
+            binding.deathStatistics.text = formatter.format(countries.TotalDeaths).toString()
+            binding.textViewNewCases.text = formatter.format(countries.NewConfirmed).toString()
 
 
         }

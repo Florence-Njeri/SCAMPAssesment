@@ -42,6 +42,14 @@ class StatisticsRepository(private var database: CoronavirusDatabase, val contex
                     response.isSuccessful.let {
 
                         Log.d("Global Statistics", response.body()?.Global.toString())
+
+                        val totalConfirmed =
+                            String.format("%,d", response.body()?.Global?.TotalConfirmed)
+
+                        val totalRecovered =
+                            String.format("%,d", response.body()?.Global?.TotalRecovered)
+
+                        val totalDeaths = String.format("%,d", response.body()?.Global?.TotalDeaths)
                         val mainActivity =
                             MainActivity()
                         //Save Global Statistics to shared Preferences
@@ -62,15 +70,15 @@ class StatisticsRepository(private var database: CoronavirusDatabase, val contex
                         )
                         editor.putString(
                             "totalConfirmed",
-                            response.body()?.Global?.TotalConfirmed.toString()
+                            totalConfirmed
                         )
                         editor.putString(
                             "totalDeaths",
-                            response.body()?.Global?.TotalDeaths.toString()
+                            totalDeaths
                         )
                         editor.putString(
                             "totalRecovered",
-                            response.body()?.Global?.TotalRecovered.toString()
+                            totalRecovered
                         )
                         editor.apply()
 

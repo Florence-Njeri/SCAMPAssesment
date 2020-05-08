@@ -100,6 +100,7 @@ class MainFragment : Fragment() {
 
         val sharedPreference =
             context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+
         totalCasesText.text = sharedPreference?.getString("totalConfirmed", " ")
         recoveredCasesText.text = sharedPreference?.getString("totalRecovered", " ")
         totalDeathsText.text = sharedPreference?.getString("totalDeaths", " ")
