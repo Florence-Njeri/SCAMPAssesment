@@ -12,20 +12,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.example.scampassesment.R
 import com.example.scampassesment.adapter.CountriesStatisticsAdapter
 import com.example.scampassesment.model.Country
-import com.example.scampassesment.ui.MainFragmentDirections
+import com.example.scampassesment.model.LoadingState
 import com.example.scampassesment.ui.viewModel.MainViewModel
-import com.example.scampassesment.ui.viewModel.MainViewModelFactory
 import kotlinx.android.synthetic.main.countries_search_bar.view.*
 import kotlinx.android.synthetic.main.main_fragment.*
+import org.koin.android.ext.android.inject
 
 
 class MainFragment : Fragment() {
@@ -34,8 +33,10 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
-    private lateinit var viewModelFactory: MainViewModelFactory
+    //    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel by inject<MainViewModel>()
+
+    //    private lateinit var viewModel: MainViewModel
     private lateinit var mAdapter: CountriesStatisticsAdapter
     var countryList = ArrayList<Country>()
 
@@ -53,11 +54,7 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val application = requireNotNull(activity).application
-        viewModelFactory =
-            MainViewModelFactory(
-                application
-            )
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+
 
         if (isNetworkConnected()) {
 
@@ -79,6 +76,26 @@ class MainFragment : Fragment() {
             mAdapter.submitList(it)
             countryList.addAll(it)
 
+        })
+
+        viewModel.loadingState.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                LoadingState.Status.FAILED -> Toast.makeText(
+                    requireContext(),
+                    it.msg,
+                    Toast.LENGTH_SHORT
+                ).show()
+                LoadingState.Status.RUNNING -> Toast.makeText(
+                    requireContext(),
+                    "Loading",
+                    Toast.LENGTH_SHORT
+                ).show()
+                LoadingState.Status.SUCCESS -> Toast.makeText(
+                    requireContext(),
+                    "Success",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         })
 
         val sharedPreference =
@@ -109,11 +126,11 @@ class MainFragment : Fragment() {
         viewModel.navigateToSelectedCountry.observe(viewLifecycleOwner, Observer {
             if (null != it) {
 
-                this.findNavController().navigate(
-                    MainFragmentDirections.actionMainFragmentToCountryStatisticsDetails(
-                        it
-                    )
-                )
+//                this.findNavController().navigate(
+//                    MainFragmentDirections.actionMainFragmentToCountryStatisticsDetails(
+//                        it
+//                    )
+//                )
                 viewModel.displayPropertyDetailsComplete()
             }
         })

@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.scampassesment.R
 import com.example.scampassesment.databinding.CountryStatisticsDetailsFragmentBinding
-import com.example.scampassesment.ui.CountryStatisticsDetailsArgs
 import com.example.scampassesment.ui.viewModel.CountryStatisticsDetailsViewModel
 import com.example.scampassesment.ui.viewModel.DetailsViewModelFactory
 

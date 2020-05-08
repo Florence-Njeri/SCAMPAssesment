@@ -1,19 +1,18 @@
 package com.example.scampassesment.ui.viewModel
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.scampassesment.database.CoronavirusDatabase.Companion.getInstance
 import com.example.scampassesment.model.Country
+import com.example.scampassesment.model.LoadingState
 import com.example.scampassesment.repository.StatisticsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application) : ViewModel() {
+class MainViewModel(private val statisticsRepository: StatisticsRepository) : ViewModel() {
 
 
     private var viewModelJob = Job()
@@ -21,13 +20,15 @@ class MainViewModel(application: Application) : ViewModel() {
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private var countryStatistic = MutableLiveData<Country?>()
+    private val _loadingState = MutableLiveData<LoadingState>()
+    val loadingState: LiveData<LoadingState>
+        get() = _loadingState
 
     private val _navigateToSelectedCountry = MutableLiveData<Country>()
     val navigateToSelectedCountry: LiveData<Country>
         get() = _navigateToSelectedCountry
 
-    private val statisticsDatabase = getInstance(application)
-    val statisticsRepository = StatisticsRepository(statisticsDatabase, application)
+//    val statisticsRepository = StatisticsRepository(statisticsDatabase, application)
 //    var statistics = database.getSummaryStatistics()
 
     /**
@@ -43,14 +44,21 @@ class MainViewModel(application: Application) : ViewModel() {
 
         }
     }
-
     /**
      * Refresh data from the repository. Use a coroutine launch to run in a
      * background thread.
      */
     private fun refreshDataFromRepository() {
+
         viewModelScope.launch {
-            statisticsRepository.refreshStatistics()
+
+            try {
+                _loadingState.value = LoadingState.LOADING
+                statisticsRepository.refreshStatistics()
+                _loadingState.value = LoadingState.LOADED
+            } catch (e: Exception) {
+                _loadingState.value = LoadingState.error(e.message)
+            }
 
         }
     }
