@@ -28,9 +28,11 @@ class MainViewModel(private val statisticsRepository: StatisticsRepository) : Vi
     val navigateToSelectedCountry: LiveData<Country>
         get() = _navigateToSelectedCountry
 
-//    val statisticsRepository = StatisticsRepository(statisticsDatabase, application)
-//    var statistics = database.getSummaryStatistics()
+    //Get country
 
+    fun getCountry(country: Country): LiveData<Country> {
+        return statisticsRepository.getCountry(country.Country)
+    }
     /**
      * The data source this ViewModel will fetch results from.
      */

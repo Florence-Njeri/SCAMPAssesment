@@ -13,8 +13,8 @@ interface CoronaVirusDao {
     fun update(summary: Country)
     //Get a specific country based on user Query
 
-    @Query("SELECT * from statistics_table ORDER BY Country DESC LIMIT 1")
-    fun getCountry(): Country?
+    @Query("SELECT Country from statistics_table ORDER BY Country DESC LIMIT 1")
+    fun getCountry(country: String): LiveData<Country>
 
 
     @Query("SELECT * from statistics_table ORDER BY TotalConfirmed DESC")

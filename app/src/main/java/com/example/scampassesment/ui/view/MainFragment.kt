@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -20,7 +19,6 @@ import androidx.lifecycle.Observer
 import com.example.scampassesment.R
 import com.example.scampassesment.adapter.CountriesStatisticsAdapter
 import com.example.scampassesment.model.Country
-import com.example.scampassesment.model.LoadingState
 import com.example.scampassesment.ui.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.countries_search_bar.view.*
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -28,6 +26,7 @@ import org.koin.android.ext.android.inject
 
 
 class MainFragment : Fragment() {
+    var country = Country()
 
     companion object {
         fun newInstance() = MainFragment()
@@ -77,25 +76,9 @@ class MainFragment : Fragment() {
             countryList.addAll(it)
 
         })
+        //TODO : Search from the database
+        viewModel.getCountry(country).observe(viewLifecycleOwner, Observer {
 
-        viewModel.loadingState.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                LoadingState.Status.FAILED -> Toast.makeText(
-                    requireContext(),
-                    it.msg,
-                    Toast.LENGTH_SHORT
-                ).show()
-                LoadingState.Status.RUNNING -> Toast.makeText(
-                    requireContext(),
-                    "Loading",
-                    Toast.LENGTH_SHORT
-                ).show()
-                LoadingState.Status.SUCCESS -> Toast.makeText(
-                    requireContext(),
-                    "Success",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
         })
 
         val sharedPreference =
@@ -147,6 +130,7 @@ class MainFragment : Fragment() {
         mAdapter.filterList(filteredList)
         mAdapter.submitList(filteredList)
     }
+
     //Check the users network connectivity
     @RequiresApi(Build.VERSION_CODES.M)
     private fun isNetworkConnected(): Boolean {
