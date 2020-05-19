@@ -26,7 +26,7 @@ import org.koin.android.ext.android.inject
 
 
 class MainFragment : Fragment() {
-    var country = Country()
+//    var country = Country()
 
     companion object {
         fun newInstance() = MainFragment()
@@ -72,12 +72,9 @@ class MainFragment : Fragment() {
         countriesList.adapter = mAdapter
 
         viewModel.statistics.observe(viewLifecycleOwner, Observer {
+            countryList.clear()
             mAdapter.submitList(it)
             countryList.addAll(it)
-
-        })
-        //TODO : Search from the database
-        viewModel.getCountry(country).observe(viewLifecycleOwner, Observer {
 
         })
 
@@ -127,7 +124,6 @@ class MainFragment : Fragment() {
                 filteredList.add(item)
             }
         }
-        mAdapter.filterList(filteredList)
         mAdapter.submitList(filteredList)
     }
 

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.scampassesment.model.Country
 
-@Database(entities = [Country::class], version = 1, exportSchema = false)
+@Database(entities = [Country::class], version = 2, exportSchema = false)
 abstract class CoronavirusDatabase : RoomDatabase(){
     abstract val coronavirusDatabaseDao:CoronaVirusDao
 
