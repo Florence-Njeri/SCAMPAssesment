@@ -12,11 +12,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+/**
+ * Contains the logic for the Main Fragmnet View
+ * Fetches data from the Repository for display in the RecyclerView
+ */
+
 class MainViewModel(private val statisticsRepository: StatisticsRepository) : ViewModel() {
 
 
     private var viewModelJob = Job()
 
+    //The scope to launch the coroutine
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private var countryStatistic = MutableLiveData<Country?>()
@@ -28,11 +34,6 @@ class MainViewModel(private val statisticsRepository: StatisticsRepository) : Vi
     val navigateToSelectedCountry: LiveData<Country>
         get() = _navigateToSelectedCountry
 
-    //Get country
-
-    fun getCountry(country: Country): LiveData<Country> {
-        return statisticsRepository.getCountry(country.Country)
-    }
     /**
      * The data source this ViewModel will fetch results from.
      */
@@ -46,6 +47,7 @@ class MainViewModel(private val statisticsRepository: StatisticsRepository) : Vi
 
         }
     }
+
     /**
      * Refresh data from the repository. Use a coroutine launch to run in a
      * background thread.

@@ -14,10 +14,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 /**
- * Repository for fetching coronavirus statistics from the network and storing them on disk
+ * Repository for fetching Coronavirus statistics from the network and caching them in Room
  */
+
 class StatisticsRepository(private var database: CoronavirusDatabase, val context: Context) {
 
     var client = CoronavirusStatisticsRetriever.service
@@ -28,9 +28,6 @@ class StatisticsRepository(private var database: CoronavirusDatabase, val contex
     /**
      *  API used to refresh the offline cache.
      */
-    fun getCountry(country: String): LiveData<Country> {
-        return database.coronavirusDatabaseDao.getCountry(/*country*/)
-    }
 
     suspend fun refreshStatistics() {
         withContext(Dispatchers.IO) {

@@ -5,6 +5,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ *
+ */
 @Entity(tableName = "statistics_table")
 data class DatabaseCountry (
     @PrimaryKey

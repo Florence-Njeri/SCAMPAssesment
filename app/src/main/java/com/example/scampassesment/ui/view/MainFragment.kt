@@ -26,13 +26,7 @@ import org.koin.android.ext.android.inject
 
 
 class MainFragment : Fragment() {
-//    var country = Country()
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
-    //    private val viewModel by viewModels<MainViewModel>()
     private val viewModel by inject<MainViewModel>()
 
     //    private lateinit var viewModel: MainViewModel

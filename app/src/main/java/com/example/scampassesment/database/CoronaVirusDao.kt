@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.scampassesment.model.Country
 
+/**
+ * My SQL queries to access the database table
+ */
 @Dao
 interface CoronaVirusDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

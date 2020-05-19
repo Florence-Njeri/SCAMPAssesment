@@ -9,6 +9,9 @@ import com.example.scampassesment.ui.viewModel.MainViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
+/**
+ * Contains entities which will be injected at some point in the app
+ */
 val repositoryModule = module {
     fun provideUserRepository(
         database: CoronavirusDatabase,

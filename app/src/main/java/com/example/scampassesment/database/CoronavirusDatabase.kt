@@ -6,6 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.scampassesment.model.Country
 
+/**
+ * The Room database uses the DAO to issue queries to the SQLite database.
+ */
+
 @Database(entities = [Country::class], version = 2, exportSchema = false)
 abstract class CoronavirusDatabase : RoomDatabase(){
     abstract val coronavirusDatabaseDao:CoronaVirusDao
