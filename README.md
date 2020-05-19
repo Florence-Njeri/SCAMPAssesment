@@ -2,7 +2,7 @@
 This is the intermediate level technical Assessment by She Code Africa Mentorship Program(SCAMP)
 
 ## Demo
-![20200505_200326](https://user-images.githubusercontent.com/40742916/81094839-cbcfe380-8f0c-11ea-8721-41153b26fa96.gif)
+![20200508_191105](https://user-images.githubusercontent.com/40742916/81425611-9ae7ec80-9160-11ea-9177-dae8d6b8db91.gif)
 
 ### Tasks to be completed:
 - User should be able to view global statistics (cases, deaths, recovered)
@@ -18,3 +18,5 @@ This is the intermediate level technical Assessment by She Code Africa Mentorshi
 - Livedata
 - MVVM
 - Moshi
+- Dependency Injection with Koin
+- Mockito
